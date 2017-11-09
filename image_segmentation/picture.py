@@ -24,12 +24,17 @@ class Picture(ExtendedImage):
             cv2.imshow("Full picture", image)
             cv2.waitKey(0)
 
-    def get_line_coordinates(self, n):
-        if 0 > n or n > len(self.lines):
-            return []
+    def get_line(self, n):
+        if 0 >= n or n > len(self.lines):
+            return {}
 
-        line = self.lines[n - 1]
-        return line.get_bounding_coordinates()
+        return self.lines[n - 1]
+
+    def get_line_coordinates(self, n):
+        return self.get_line(n).get_bounding_box()
+
+    def get_character_coordinates(self, n, p):
+        return self.get_line(n).get_character_coordinates(p)
 
     def get_segments(self):
         self.lines = self._segment_image(self.get_image())

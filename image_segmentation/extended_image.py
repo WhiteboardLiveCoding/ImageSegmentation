@@ -55,13 +55,8 @@ class ExtendedImage:
 
         return points, used_contours
 
-    def get_bounding_coordinates(self):
-        x = self.get_x()
-        y = self.get_y()
-        width = self.get_width()
-        height = self.get_height()
-
-        return [(x, y), (x + width, y), (x + width, y), (x + width, y + height)]
+    def get_bounding_box(self):
+        return {'x': self.get_x(), 'y': self.get_y(), 'width': self.get_width(), 'height': self.get_height()}
 
     def _get_center_of_contour(self, ctr):
         moment = cv2.moments(ctr)

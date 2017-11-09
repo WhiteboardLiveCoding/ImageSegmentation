@@ -28,6 +28,25 @@ class Line(ExtendedImage):
         self.words = self._segment_image()
         return self.words
 
+    def get_character_coordinates(self, p):
+        if 0 >= p:
+            return {}
+
+        p -= 1
+        i = 0
+
+        while i < len(self.words) and p >= len(self.words[i].characters):
+            p -= len(self.words[i].characters)
+            p -= 1
+            i += 1
+
+        if i >= len(self.words):
+            return {}
+        elif p < 0:
+            p = 0
+
+        return self.words[i].characters[p].get_bounding_box()
+
     def _segment_image(self):
         points, used_contours = self.get_center_points(self.get_image())
         average_distance, standard_deviation = self.average_node_distance(points)
