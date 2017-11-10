@@ -28,6 +28,12 @@ class Line(ExtendedImage):
         self.words = self._segment_image()
         return self.words
 
+    def get_bounding_box(self):
+        left = self.words[0].characters[0]
+        right = self.words[-1].characters[-1]
+
+        return {'x': left.get_x(), 'y': self.get_y(), 'width': right.get_x() + right.get_width() - left.get_x(), 'height': self.get_height()}
+
     def get_character_coordinates(self, p):
         if 0 >= p:
             return {}
@@ -79,7 +85,8 @@ class Line(ExtendedImage):
                 min_y, max_y = self._truncate_black_borders(roi)
                 roi = roi[min_y:max_y]
 
-                words.append(Word(roi, x_axis, y_axis, width, max_y - min_y, average_distance, self.preferences))
+                words.append(Word(roi, x_axis + self.get_x(), y_axis + self.get_y(), width, max_y - min_y,
+                                  average_distance, self.preferences))
                 previous_x = x_axis
 
         LOGGER.debug("%d words detected in this line.", len(words))

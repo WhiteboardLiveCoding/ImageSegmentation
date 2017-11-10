@@ -31,10 +31,20 @@ class Picture(ExtendedImage):
         return self.lines[n - 1]
 
     def get_line_coordinates(self, n):
-        return self.get_line(n).get_bounding_box()
+        line = self.get_line(n)
+
+        if line:
+            return line.get_bounding_box()
+        else:
+            return {}
 
     def get_character_coordinates(self, n, p):
-        return self.get_line(n).get_character_coordinates(p)
+        line = self.get_line(n)
+
+        if line:
+            return line.get_character_coordinates(p)
+        else:
+            return {}
 
     def get_segments(self):
         self.lines = self._segment_image(self.get_image())

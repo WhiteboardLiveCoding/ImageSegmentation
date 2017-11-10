@@ -46,7 +46,8 @@ class Word(ExtendedImage):
                 min_y, max_y = self._truncate_black_borders(roi)
                 roi = roi[min_y:max_y]
 
-                characters.append(Character(roi, x_axis, y_axis, width, max_y - min_y, self.preferences))
+                characters.append(Character(roi, x_axis + self.get_x(), y_axis + self.get_y(),width, max_y - min_y,
+                                            self.preferences))
                 previous_x = center[0]
                 previous_width = width
 
