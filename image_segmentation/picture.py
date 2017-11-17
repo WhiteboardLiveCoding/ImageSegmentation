@@ -26,7 +26,7 @@ class Picture(ExtendedImage):
 
     def get_line(self, n):
         if 0 >= n or n > len(self.lines):
-            return {}
+            return None
 
         return self.lines[n - 1]
 
@@ -60,6 +60,9 @@ class Picture(ExtendedImage):
 
         sorted_ctrs = self._find_contours(img)
         sorted_ctrs = self._merge_subcontours(sorted_ctrs)
+
+        if not sorted_ctrs:
+            return []
 
         # Get average height and width of all lines
         average_width = sum(cv2.boundingRect(ctr)[2] for i, ctr in enumerate(sorted_ctrs)) / len(sorted_ctrs)
