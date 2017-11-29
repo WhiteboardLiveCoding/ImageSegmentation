@@ -29,6 +29,10 @@ class Line(ExtendedImage):
         return self.words
 
     def get_bounding_box(self):
+        if not self.words or not self.words[0].characters:
+            # ToDo: Find out why we ever get here
+            return {}
+
         left = self.words[0].characters[0]
         right = self.words[-1].characters[-1]
 

@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='image_segmentation',
     packages=['image_segmentation'],
-    version='0.1',
+    version='0.11',
     description='Segments an image into separate characters',
     author='WhiteboardLiveCoding',
     url='https://github.com/WhiteboardLiveCoding/ImageSegmentation',
